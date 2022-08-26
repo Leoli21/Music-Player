@@ -81,11 +81,83 @@ playPauseBtn.addEventListener('click', ()=> {
 });
 
 nextBtn.addEventListener('click', ()=> {
-    nextSong(); // Call the next music function
+    // First get the innerText of the icon, then change accordingly
+    let getText = repeatBtn.innerText;
+
+    // Change icon based on click using switch statement
+    switch(getText) {
+        // if icon is currently repeat, do nothing and just play the next song
+        case "repeat":
+            nextSong(); // Call the next music function
+            break;
+
+        // if icon is currently repeat_one, then change to repeat
+        case "repeat_one":
+            repeatBtn.innerText = "repeat";
+            repeatBtn.setAttribute("title", "Playlist Looped");
+            nextSong(); // Call the next music function
+            break;
+
+         // if icon is currently shuffle, do nothing with the icon and play a random song
+         // next
+         case "shuffle":
+            // Generate random index between the max range of songs array length
+            let randIndex = Math.floor((Math.random() * allMusic.length) + 1);
+            do {
+                randIndex = Math.floor((Math.random() * allMusic.length) + 1);
+                // Continue generating a random index until it is not equal to current song
+            } while(randIndex == musicIndex); 
+            // Update the musicIndex to the random index so that the randomly chosen
+            // song will play
+            musicIndex = randIndex 
+            
+            // Calling loadMusic function to actually select the song
+            loadMusic(musicIndex);
+            // Calling playMusic() to actually play current song
+            playMusic();
+            playingNow();
+            break;
+    }
 });
 
 prevBtn.addEventListener('click', ()=> {
-    prevSong(); // Call the next music function
+    // First get the innerText of the icon, then change accordingly
+    let getText = repeatBtn.innerText;
+
+    // Change icon based on click using switch statement
+    switch(getText) {
+        // if icon is currently repeat, do nothing and just play the next song
+        case "repeat":
+            prevSong(); // Call the prev music function
+            break;
+
+        // if icon is currently repeat_one, then change to repeat
+        case "repeat_one":
+            repeatBtn.innerText = "repeat";
+            repeatBtn.setAttribute("title", "Playlist Looped");
+            prevSong(); // Call the prev music function
+            break;
+
+         // if icon is currently shuffle, do nothing with the icon and play a random song
+         // next
+         case "shuffle":
+            // Generate random index between the max range of songs array length
+            let randIndex = Math.floor((Math.random() * allMusic.length) + 1);
+            do {
+                randIndex = Math.floor((Math.random() * allMusic.length) + 1);
+                // Continue generating a random index until it is not equal to current song
+            } while(randIndex == musicIndex); 
+            // Update the musicIndex to the random index so that the randomly chosen
+            // song will play
+            musicIndex = randIndex 
+            
+            // Calling loadMusic function to actually select the song
+            loadMusic(musicIndex);
+            // Calling playMusic() to actually play current song
+            playMusic();
+            playingNow();
+            break;
+    }
 });
 
 // Update Progress Bar Width according to the music's current play time
@@ -179,7 +251,6 @@ musicAudio.addEventListener('ended', ()=> {
         // next song will play
         case "repeat": 
             nextSong();
-            console.log("Playing next Song");
             break;
 
         // if icon is currently repeat_one, then we will change the current time of
