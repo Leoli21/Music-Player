@@ -215,7 +215,7 @@ body {
 }
 
 /* Show class is used in JS to handle interactivity of music list*/
-.music-list .show {
+.music-list.show {
   bottom: 0;
   opacity: 1;
   pointer-events: auto;
@@ -275,4 +275,9 @@ ul li .row p {
 
 ul li .audio-duration {
   font-size: 16px;
+}
+
+ul li.playing {
+  color: var(--violet);
+  pointer-events: none;
 }
